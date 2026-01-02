@@ -1,18 +1,19 @@
-const lista = document.getElementById("listaReceitas");
+const lista = document.getElementById("lista");
 const busca = document.getElementById("busca");
-const filtro = document.getElementById("filtroTipo");
+const filtro = document.getElementById("filtro");
 
-function renderizar() {
-  const receitas = getReceitas();
+async function carregar() {
+  const { data } = await supabase
+    .from("receitas")
+    .select("*")
+    .order("id", { ascending: false });
+
   lista.innerHTML = "";
 
-  const textoBusca = busca.value.toLowerCase();
-  const tipo = filtro.value;
-
-  receitas
+  data
     .filter(r =>
-      r.nome.toLowerCase().includes(textoBusca) &&
-      (tipo === "" || r.tipo === tipo)
+      r.nome.toLowerCase().includes(busca.value.toLowerCase()) &&
+      (filtro.value === "" || r.tipo === filtro.value)
     )
     .forEach(r => {
       const li = document.createElement("li");
@@ -25,7 +26,7 @@ function renderizar() {
     });
 }
 
-busca.addEventListener("input", renderizar);
-filtro.addEventListener("change", renderizar);
+busca.oninput = carregar;
+filtro.onchange = carregar;
 
-renderizar();
+carregar();

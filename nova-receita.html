@@ -8,23 +8,25 @@
 <body>
   <h1>➕ Nova Receita</h1>
 
-  <form id="form">
-    <input type="text" id="nome" placeholder="Nome" required>
+ <form id="form">
+  <input id="senha" type="password" placeholder="Senha da família" required>
 
-    <select id="tipo">
-      <option value="doce">Doce</option>
-      <option value="salgado">Salgado</option>
-    </select>
+  <input id="nome" placeholder="Nome" required>
 
-    <textarea id="ingredientes" placeholder="Ingredientes"></textarea>
-    <textarea id="modo" placeholder="Modo de preparo"></textarea>
+  <select id="tipo">
+    <option value="doce">Doce</option>
+    <option value="salgado">Salgado</option>
+  </select>
 
-    <input type="file" id="imagem">
+  <textarea id="ingredientes" placeholder="Ingredientes"></textarea>
+  <textarea id="modo" placeholder="Modo de preparo"></textarea>
 
-    <button type="submit">Salvar</button>
-  </form>
+  <input type="file" id="imagem">
 
-  <script src="js/dados.js"></script>
-  <script src="js/nova-receita.js"></script>
+  <button>Salvar</button>
+</form>
+
+<script src="js/supabase.js"></script>
+<script src="js/nova-receita.js"></script>
 </body>
 </html>

@@ -1,12 +1,16 @@
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = new URLSearchParams(location.search).get("id");
 
-const receita = getReceitas().find(r => r.id == id);
+async function carregar() {
+  const { data } = await supabase
+    .from("receitas")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-document.getElementById("nome").textContent = receita.nome;
-document.getElementById("ingredientes").textContent = receita.ingredientes;
-document.getElementById("modo").textContent = receita.modoPreparo;
-
-if (receita.imagem) {
-  document.getElementById("imagem").src = receita.imagem;
+  nome.textContent = data.nome;
+  ingredientes.textContent = data.ingredientes;
+  modo.textContent = data.modo;
+  if (data.imagem) imagem.src = data.imagem;
 }
+
+carregar();

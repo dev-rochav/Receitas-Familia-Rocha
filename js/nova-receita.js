@@ -1,26 +1,33 @@
-document.getElementById("form").addEventListener("submit", e => {
+form.onsubmit = async e => {
   e.preventDefault();
 
-  const leitor = new FileReader();
-  const file = document.getElementById("imagem").files[0];
-
-  leitor.onload = () => salvar(leitor.result);
-  if (file) leitor.readAsDataURL(file);
-  else salvar("");
-});
-
-function salvar(imagem) {
-  const receitas = getReceitas();
-
-  receitas.push({
-    id: Date.now(),
-    nome: nome.value,
-    tipo: tipo.value,
-    ingredientes: ingredientes.value,
-    modoPreparo: modo.value,
-    imagem
+  const senhaOk = await fetch("/api/verificar-senha", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ senha: senha.value })
   });
 
-  salvarReceitas(receitas);
-  window.location.href = "index.html";
-}
+  if (!senhaOk.ok) {
+    alert("Senha incorreta");
+    return;
+  }
+
+  const reader = new FileReader();
+  const file = imagem.files[0];
+
+  reader.onload = async () => {
+    await supabase.from("receitas").insert([{
+      nome: nome.value,
+      tipo: tipo.value,
+      ingredientes: ingredientes.value,
+      modo: modo.value,
+      imagem: reader.result
+    }]);
+
+    location.href = "index.html";
+  };
+
+  if (file) reader.readAsDataURL(file);
+  else reader.onload();
+};
+

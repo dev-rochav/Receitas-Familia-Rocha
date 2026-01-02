@@ -6,21 +6,22 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>📖 Receitas de Família</h1>
 
-  <input type="text" id="busca" placeholder="Buscar receita...">
+<h1>📖 Receitas de Família</h1>
 
-  <select id="filtroTipo">
-    <option value="">Todas</option>
-    <option value="doce">Doce</option>
-    <option value="salgado">Salgado</option>
-  </select>
+<input id="busca" placeholder="Buscar receita...">
 
-  <ul id="listaReceitas"></ul>
+<select id="filtro">
+  <option value="">Todas</option>
+  <option value="doce">Doce</option>
+  <option value="salgado">Salgado</option>
+</select>
 
-  <a href="nova-receita.html" class="botao">➕ Nova Receita</a>
+<ul id="lista"></ul>
 
-  <script src="js/dados.js"></script>
-  <script src="js/index.js"></script>
+<a href="nova-receita.html">➕ Nova Receita</a>
+
+<script src="js/supabase.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
