@@ -3,10 +3,15 @@ const busca = document.getElementById("busca");
 const filtro = document.getElementById("filtro");
 
 async function carregar() {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("receitas")
     .select("*")
     .order("id", { ascending: false });
+
+  if (error) {
+    alert("Erro ao carregar receitas");
+    return;
+  }
 
   lista.innerHTML = "";
 
@@ -17,11 +22,9 @@ async function carregar() {
     )
     .forEach(r => {
       const li = document.createElement("li");
-      li.innerHTML = `
-        <a href="receita.html?id=${r.id}">
-          ${r.nome} (${r.tipo})
-        </a>
-      `;
+      li.innerHTML = `<a href="receita.html?id=${r.id}">
+        ${r.nome} (${r.tipo})
+      </a>`;
       lista.appendChild(li);
     });
 }

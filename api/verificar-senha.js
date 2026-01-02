@@ -1,6 +1,13 @@
 export default function handler(req, res) {
-  if (req.body.senha === process.env.FAMILY_PASSWORD) {
+  if (req.method !== "POST") {
+    return res.status(405).end();
+  }
+
+  const { senha } = req.body;
+
+  if (senha === process.env.FAMILY_PASSWORD) {
     return res.status(200).json({ ok: true });
   }
-  res.status(401).json({ ok: false });
+
+  return res.status(401).json({ ok: false });
 }

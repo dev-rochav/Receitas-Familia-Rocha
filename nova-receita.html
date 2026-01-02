@@ -6,20 +6,23 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>➕ Nova Receita</h1>
 
- <form id="form">
+<h1>➕ Nova Receita</h1>
+
+<form id="form">
+
   <input id="senha" type="password" placeholder="Senha da família" required>
 
-  <input id="nome" placeholder="Nome" required>
+  <input id="nome" placeholder="Nome da receita" required>
 
   <select id="tipo">
     <option value="doce">Doce</option>
     <option value="salgado">Salgado</option>
   </select>
 
-  <textarea id="ingredientes" placeholder="Ingredientes"></textarea>
-  <textarea id="modo" placeholder="Modo de preparo"></textarea>
+  <textarea id="ingredientes" placeholder="Ingredientes" required></textarea>
+
+  <textarea id="modo" placeholder="Modo de preparo" required></textarea>
 
   <input type="file" id="imagem">
 
@@ -31,3 +34,4 @@
 <script src="js/nova-receita.js"></script>
 </body>
 </html>
+
