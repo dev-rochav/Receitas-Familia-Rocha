@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Receita</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>➕ Nova Receita</h1>
+
+  <form id="form">
+    <input type="text" id="nome" placeholder="Nome" required>
+
+    <select id="tipo">
+      <option value="doce">Doce</option>
+      <option value="salgado">Salgado</option>
+    </select>
+
+    <textarea id="ingredientes" placeholder="Ingredientes"></textarea>
+    <textarea id="modo" placeholder="Modo de preparo"></textarea>
+
+    <input type="file" id="imagem">
+
+    <button type="submit">Salvar</button>
+  </form>
+
+  <script src="js/dados.js"></script>
+  <script src="js/nova-receita.js"></script>
+</body>
+</html>
