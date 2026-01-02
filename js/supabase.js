@@ -1,8 +1,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const supabaseUrl = "SUA_PROJECT_URL";
-  const supabaseKey = "SUA_ANON_PUBLIC_KEY";
-
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://votltdaxhvcvnbejhqzp.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
   const supabase = window.supabase.createClient(
     supabaseUrl,
     supabaseKey
