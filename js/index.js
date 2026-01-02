@@ -1,38 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
-const lista = document.getElementById("lista");
-const busca = document.getElementById("busca");
-const filtro = document.getElementById("filtro");
+  const lista = document.getElementById("lista-receitas");
 
-async function carregar() {
-  const { data, error } = await supabase
-    .from("receitas")
-    .select("*")
-    .order("id", { ascending: false });
-
-  if (error) {
-    alert("Erro ao carregar receitas");
+  if (!lista) {
+    console.error("Elemento lista-receitas não encontrado");
     return;
   }
 
-  lista.innerHTML = "";
+  const { data: receitas, error } = await supabase
+    .from("receitas")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-  data
-    .filter(r =>
-      r.nome.toLowerCase().includes(busca.value.toLowerCase()) &&
-      (filtro.value === "" || r.tipo === filtro.value)
-    )
-    .forEach(r => {
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="receita.html?id=${r.id}">
-        ${r.nome} (${r.tipo})
-      </a>`;
-      lista.appendChild(li);
-    });
-}
+  if (error) {
+    console.error("Erro ao buscar receitas:", error);
+    return;
+  }
 
-busca.oninput = carregar;
-filtro.onchange = carregar;
+  if (!receitas || receitas.length === 0) {
+    lista.innerHTML = "<li>Nenhuma receita cadastrada</li>";
+    return;
+  }
 
-carregar();
+  receitas.forEach((receita) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <a href="receita.html?id=${receita.id}">
+        ${receita.nome} (${receita.tipo})
+      </a>
+    `;
+
+    lista.appendChild(li);
+  });
+
 });
