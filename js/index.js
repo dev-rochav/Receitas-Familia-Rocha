@@ -1,3 +1,5 @@
+console.log("index.js carregado");
+
 const lista = document.getElementById("lista");
 const busca = document.getElementById("busca");
 const filtro = document.getElementById("filtro");
