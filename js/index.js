@@ -1,4 +1,4 @@
-console.log("index.js carregado");
+document.addEventListener("DOMContentLoaded", () => {
 
 const lista = document.getElementById("lista");
 const busca = document.getElementById("busca");
@@ -35,3 +35,4 @@ busca.oninput = carregar;
 filtro.onchange = carregar;
 
 carregar();
+});

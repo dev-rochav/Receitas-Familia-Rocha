@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const id = new URLSearchParams(location.search).get("id");
 
 async function carregar() {
@@ -22,3 +24,5 @@ async function carregar() {
 }
 
 carregar();
+
+});
