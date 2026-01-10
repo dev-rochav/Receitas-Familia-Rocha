@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const { data, error } = await supabase
     .from("receitas")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("nome", { ascending: true });
+
 
   if (error) {
     console.error(error);
