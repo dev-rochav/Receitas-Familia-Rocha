@@ -152,7 +152,7 @@ async function salvarEdicao(e) {
       tipo: document.getElementById("edit-tipo").value,
       ingredientes: document.getElementById("edit-ingredientes").value,
       modo: document.getElementById("edit-modo").value,
-      imagem_url: imagemUrl
+      imagem: imagemUrl
     })
     .eq("id", receita.id);
 
@@ -165,7 +165,6 @@ async function salvarEdicao(e) {
   alert("Receita atualizada com sucesso!");
   location.reload();
 }
-
 
 // ⏳ Inicializa
 carregarReceita();
