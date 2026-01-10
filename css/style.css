@@ -177,7 +177,8 @@ textarea {
 }
 
 #imagem {
-  max-width: 100%;
+  max-width: 70%;
+  text-align: center;
   border-radius: 12px;
   margin: 15px 0;
 }
