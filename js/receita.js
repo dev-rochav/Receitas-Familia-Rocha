@@ -1,54 +1,51 @@
+import { supabase } from "./supabase.js";
+
 const SENHA = "Receita123@";
 
-document.addEventListener("DOMContentLoaded", () => {
-  carregar();
-});
+// Captura o ID da URL
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-async function carregar() {
+let receita = null;
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  if (!id) {
-    alert("Receita não encontrada");
-    return;
-  }
-
-  const { data: receita, error } = await supabase
+// 🚀 Função principal
+async function carregarReceita() {
+  const { data, error } = await supabase
     .from("receitas")
     .select("*")
     .eq("id", id)
     .single();
 
-  if (error || !receita) {
-    console.error("Erro Supabase:", error);
+  if (error) {
+    console.error(error);
     alert("Erro ao carregar receita");
     return;
   }
 
-  console.log("Receita carregada:", receita); // debug
+  receita = data;
 
+  // Preenche a página
   document.getElementById("nome").textContent = receita.nome;
   document.getElementById("tipo").textContent = receita.tipo;
   document.getElementById("ingredientes").textContent = receita.ingredientes;
   document.getElementById("modo").textContent = receita.modo;
 
-  if (receita.imagem) {
-    const img = document.getElementById("imagem");
-    img.src = receita.imagem;
-    img.style.display = "block";
-  } 
+  configurarAcoes();
 }
 
-document.getElementById("btn-excluir").addEventListener("click", async () => {
+// 🔧 Configura botões DEPOIS de carregar
+function configurarAcoes() {
+  document.getElementById("btn-excluir").addEventListener("click", excluir);
+  document.getElementById("btn-editar").addEventListener("click", mostrarFormularioEdicao);
+  document.getElementById("form-editar").addEventListener("submit", salvarEdicao);
+}
+
+// 🗑️ Excluir
+async function excluir() {
   const senha = prompt("Digite a senha para excluir:");
+  if (senha !== SENHA) return alert("Senha incorreta");
 
-  if (senha !== SENHA) {
-    alert("Senha incorreta");
-    return;
-  }
-
-  const confirmar = confirm("Tem certeza que deseja excluir esta receita?");
+  const confirmar = confirm("Tem certeza?");
   if (!confirmar) return;
 
   const { error } = await supabase
@@ -57,22 +54,19 @@ document.getElementById("btn-excluir").addEventListener("click", async () => {
     .eq("id", receita.id);
 
   if (error) {
-    alert("Erro ao excluir");
     console.error(error);
+    alert("Erro ao excluir");
     return;
   }
 
   alert("Receita excluída");
   window.location.href = "index.html";
-});
+}
 
-document.getElementById("btn-editar").addEventListener("click", () => {
+// ✏️ Mostrar formulário de edição
+function mostrarFormularioEdicao() {
   const senha = prompt("Digite a senha para editar:");
-
-  if (senha !== SENHA) {
-    alert("Senha incorreta");
-    return;
-  }
+  if (senha !== SENHA) return alert("Senha incorreta");
 
   document.getElementById("form-editar").style.display = "block";
 
@@ -80,9 +74,10 @@ document.getElementById("btn-editar").addEventListener("click", () => {
   document.getElementById("edit-tipo").value = receita.tipo;
   document.getElementById("edit-ingredientes").value = receita.ingredientes;
   document.getElementById("edit-modo").value = receita.modo;
-});
+}
 
-document.getElementById("form-editar").addEventListener("submit", async (e) => {
+// 💾 Salvar edição
+async function salvarEdicao(e) {
   e.preventDefault();
 
   const { error } = await supabase
@@ -96,11 +91,14 @@ document.getElementById("form-editar").addEventListener("submit", async (e) => {
     .eq("id", receita.id);
 
   if (error) {
-    alert("Erro ao salvar");
     console.error(error);
+    alert("Erro ao salvar");
     return;
   }
 
-  alert("Receita atualizada!");
+  alert("Receita atualizada");
   location.reload();
-});
+}
+
+// ⏳ Inicia tudo
+carregarReceita();
