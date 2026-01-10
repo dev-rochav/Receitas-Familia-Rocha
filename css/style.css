@@ -176,3 +176,8 @@ textarea {
   color: white;
 }
 
+#imagem {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 15px 0;
+}
