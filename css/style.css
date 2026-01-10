@@ -154,4 +154,7 @@ textarea {
   background: #d45a4a;
   color: white;
 }
+#modo, #ingredientes {
+  white-space: pre-line;
+}
 
