@@ -108,6 +108,12 @@ function mostrarFormularioEdicao() {
   document.getElementById("edit-ingredientes").value = receita.ingredientes;
   document.getElementById("edit-modo").value = receita.modo;
 
+  const preview = document.getElementById("preview-imagem");
+  if (receita.imagem_url) {
+    preview.src = receita.imagem_url;
+    preview.style.display = "block";
+  }
+
   form.scrollIntoView({ behavior: "smooth" });
 }
 
@@ -133,6 +139,53 @@ async function salvarEdicao(e) {
 
   alert("Receita atualizada com sucesso");
   location.reload();
+
+
+  let imagemUrl = receita.imagem_url;
+
+  const arquivo = document.getElementById("edit-imagem").files[0];
+
+  // Se selecionou nova imagem
+  if (arquivo) {
+    const nomeArquivo = `${Date.now()}-${arquivo.name}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("imagens-receitas")
+      .upload(nomeArquivo, arquivo, { upsert: true });
+
+    if (uploadError) {
+      alert("Erro ao enviar imagem");
+      return;
+    }
+
+    const { data } = supabase.storage
+      .from("imagens-receitas")
+      .getPublicUrl(nomeArquivo);
+
+    imagemUrl = data.publicUrl;
+  }
+
+  const { error } = await supabase
+    .from("receitas")
+    .update({
+      nome: document.getElementById("edit-nome").value,
+      tipo: document.getElementById("edit-tipo").value,
+      ingredientes: document.getElementById("edit-ingredientes").value,
+      modo: document.getElementById("edit-modo").value,
+      imagem_url: imagemUrl
+    })
+    .eq("id", receita.id);
+
+  if (error) {
+    console.error(error);
+    alert("Erro ao salvar");
+    return;
+  }
+
+  alert("Receita atualizada");
+  location.reload();
+
+
 }
 
 // ⏳ Inicializa
