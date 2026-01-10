@@ -119,30 +119,36 @@ async function salvarEdicao(e) {
 
   const arquivo = document.getElementById("edit-imagem").files[0];
 
-  // Se selecionou nova imagem
+  // 📤 Se o usuário escolheu nova imagem
   if (arquivo) {
     const nomeArquivo = `${Date.now()}-${arquivo.name}`;
 
     const { error: uploadError } = await supabase.storage
       .from("imagens-receitas")
-      .upload(nomeArquivo, arquivo, { upsert: true });
+      .upload(`public/${nomeArquivo}`, arquivo, {
+        cacheControl: "3600",
+        upsert: true
+      });
 
     if (uploadError) {
+      console.error(uploadError);
       alert("Erro ao enviar imagem");
       return;
     }
 
+    // 🌐 Pega a URL pública da imagem
     const { data } = supabase.storage
       .from("imagens-receitas")
-      .getPublicUrl(nomeArquivo);
+      .getPublicUrl(`public/${nomeArquivo}`);
 
     imagemUrl = data.publicUrl;
   }
 
+  // 💾 Atualiza os dados da receita
   const { error } = await supabase
     .from("receitas")
     .update({
-      nome: document.getElementById("edit-nome").value,
+      nome: document.getElementById("edit-nome").value.trim(),
       tipo: document.getElementById("edit-tipo").value,
       ingredientes: document.getElementById("edit-ingredientes").value,
       modo: document.getElementById("edit-modo").value,
@@ -152,11 +158,11 @@ async function salvarEdicao(e) {
 
   if (error) {
     console.error(error);
-    alert("Erro ao salvar");
+    alert("Erro ao salvar alterações");
     return;
   }
 
-  alert("Receita atualizada");
+  alert("Receita atualizada com sucesso!");
   location.reload();
 }
 
