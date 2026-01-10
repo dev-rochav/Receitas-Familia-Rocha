@@ -36,6 +36,13 @@ async function carregarReceita() {
 
   // 🖥️ Preenche a página
   document.getElementById("nome").textContent = receita.nome;
+
+  if (receita.imagem) {
+  const img = document.getElementById("imagem");
+  img.src = receita.imagem;
+  img.style.display = "block";
+}
+
   document.getElementById("tipo").textContent = receita.tipo;
   document.getElementById("ingredientes").textContent = receita.ingredientes;
   document.getElementById("modo").textContent = receita.modo;
