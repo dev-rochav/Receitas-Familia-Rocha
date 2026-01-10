@@ -107,6 +107,12 @@ function mostrarFormularioEdicao() {
   document.getElementById("edit-tipo").value = receita.tipo;
   document.getElementById("edit-ingredientes").value = receita.ingredientes;
   document.getElementById("edit-modo").value = receita.modo;
+  const preview = document.getElementById("preview-imagem");
+
+  if (receita.imagem_url) {
+    preview.src = receita.imagem_url;
+    preview.style.display = "block";
+  }
 
   form.scrollIntoView({ behavior: "smooth" });
 }
