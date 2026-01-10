@@ -158,3 +158,21 @@ textarea {
   white-space: pre-line;
 }
 
+.acoes-receita {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.acoes-receita button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.acoes-receita .danger {
+  background: #d9534f;
+  color: white;
+}
+

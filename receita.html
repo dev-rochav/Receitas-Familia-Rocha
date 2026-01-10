@@ -17,6 +17,26 @@
   <p id="modo"></p>
 </div>
 
+<div class="acoes-receita">
+  <button id="btn-editar">✏️ Editar</button>
+  <button id="btn-excluir" class="danger">🗑️ Excluir</button>
+</div>
+
+<!-- Formulário de edição (começa escondido) -->
+<form id="form-editar" style="display: none;">
+  <input type="text" id="edit-nome" required />
+  
+  <select id="edit-tipo">
+    <option value="doce">Doce</option>
+    <option value="salgado">Salgado</option>
+  </select>
+
+  <textarea id="edit-ingredientes" rows="5"></textarea>
+  <textarea id="edit-modo" rows="6"></textarea>
+
+  <button type="submit">💾 Salvar Alterações</button>
+</form>
+
 <a href="index.html">⬅ Voltar</a>
 
 <script type="module" src="js/supabase.js"></script>
