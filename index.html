@@ -10,6 +10,20 @@
   <h1>🍰 Receitas da Família</h1>
   <a href="nova-receita.html">➕ Nova Receita</a>
 </header>
+<div class="filtros">
+  <input 
+    type="text" 
+    id="busca" 
+    placeholder="🔍 Buscar receita pelo nome..."
+  >
+
+  <div class="botoes-filtro">
+    <button data-tipo="todos" class="ativo">Todos</button>
+    <button data-tipo="doce">🍰 Doce</button>
+    <button data-tipo="salgado">🥧 Salgado</button>
+  </div>
+</div>
+
 <ul id="lista-receitas"></ul>
 
   <script type="module" src="js/supabase.js"></script>

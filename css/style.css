@@ -122,3 +122,36 @@ textarea {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* FILTROS */
+.filtros {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filtros input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.botoes-filtro {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.botoes-filtro button {
+  background: #f2d2c9;
+  color: #4a2c2a;
+  font-weight: bold;
+}
+
+.botoes-filtro button.ativo {
+  background: #d45a4a;
+  color: white;
+}
+
