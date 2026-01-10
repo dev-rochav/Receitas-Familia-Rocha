@@ -115,7 +115,7 @@ function mostrarFormularioEdicao() {
 async function salvarEdicao(e) {
   e.preventDefault();
 
-  let imagemUrl = receita.imagem_url;
+  let imagemUrl = receita.imagem;
 
   const arquivo = document.getElementById("edit-imagem").files[0];
 
