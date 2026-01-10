@@ -1,3 +1,4 @@
+import { supabase } from "./supabase.js";
 document.addEventListener("DOMContentLoaded", () => {
 
   const blocoSenha = document.getElementById("bloco-senha");
