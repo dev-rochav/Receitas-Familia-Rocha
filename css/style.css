@@ -5,6 +5,10 @@ body {
   margin: auto;
 }
 
+body{
+background-color: blue;
+}
+
 input, textarea, select, button {
   width: 100%;
   margin: 10px 0;
